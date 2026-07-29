@@ -1,0 +1,25 @@
+// You are given an integer array nums and an integer target.
+
+// You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+
+// For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate 
+// them to build the expression "+2-1".
+// Return the number of different expressions that you can build, which evaluates to target.
+
+
+class Solution {
+public:
+    int find(vector<int>& nums, int index, int n, int target){
+        if(index==n){
+            return target == 0;
+        }
+        int plus= find(nums, index+1, n, target-nums[index]);
+        int minus= find(nums, index+1, n, target+nums[index]);
+        return plus+minus;
+    }
+
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int n = nums.size();
+        return find(nums, 0, n, target);
+    }
+};
